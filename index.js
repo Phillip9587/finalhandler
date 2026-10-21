@@ -11,19 +11,19 @@
  * @private
  */
 
-var debug = require('debug')('finalhandler')
-var encodeUrl = require('encodeurl')
-var escapeHtml = require('escape-html')
-var onFinished = require('on-finished')
-var parseUrl = require('parseurl')
-var statuses = require('statuses')
+const debug = require('debug')('finalhandler')
+const encodeUrl = require('encodeurl')
+const escapeHtml = require('escape-html')
+const onFinished = require('on-finished')
+const parseUrl = require('parseurl')
+const statuses = require('statuses')
 
 /**
  * Module variables.
  * @private
  */
 
-var isFinished = onFinished.isFinished
+const isFinished = onFinished.isFinished
 
 /**
  * Create a minimal HTML document.
@@ -33,7 +33,7 @@ var isFinished = onFinished.isFinished
  */
 
 function createHtmlDocument (message) {
-  var body = escapeHtml(message)
+  const body = escapeHtml(message)
     .replaceAll('\n', '<br>')
     .replaceAll('  ', ' &nbsp;')
 
@@ -67,18 +67,18 @@ module.exports = finalhandler
  */
 
 function finalhandler (req, res, options) {
-  var opts = options || {}
+  const opts = options || {}
 
   // get environment
-  var env = opts.env || process.env.NODE_ENV || 'development'
+  const env = opts.env || process.env.NODE_ENV || 'development'
 
   // get error callback
-  var onerror = opts.onerror
+  const onerror = opts.onerror
 
   return function (err) {
-    var headers
-    var msg
-    var status
+    let headers
+    let msg
+    let status
 
     // ignore 404 on in-flight response
     if (!err && res.headersSent) {
@@ -155,7 +155,7 @@ function getErrorHeaders (err) {
  */
 
 function getErrorMessage (err, status, env) {
-  var msg
+  let msg
 
   if (env !== 'production') {
     // use err.stack, which typically includes err.message
@@ -220,7 +220,7 @@ function getResourceName (req) {
  */
 
 function getResponseStatusCode (res) {
-  var status = res.statusCode
+  let status = res.statusCode
 
   // default status code to 500 if outside valid range
   if (typeof status !== 'number' || status < 400 || status > 599) {
@@ -244,7 +244,7 @@ function getResponseStatusCode (res) {
 function send (req, res, status, headers, message) {
   function write () {
     // response body
-    var body = createHtmlDocument(message)
+    const body = createHtmlDocument(message)
 
     // response status
     res.statusCode = status

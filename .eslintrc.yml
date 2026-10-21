@@ -7,3 +7,5 @@ plugins:
 overrides:
   - files: '**/*.md'
     processor: 'markdown/markdown'
+rules:
+  no-var: error
